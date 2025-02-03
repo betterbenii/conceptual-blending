@@ -1,10 +1,3 @@
-# Task 9 - Project Setup and Simple Starter Implementation of Simplex Network
-
-## Overview
-
-This task focuses on setting up the development environment for **Conceptual Blending Project** and implementing a simple version of the **Simplex Network** for conceptual blending. The task involved configuring the development environment with Python, MeTTa, and the OpenAI API, allowing integration with GPT-based functionality. This project is built using a simple setup with an agent-based architecture and showcases the integration of **GPT-based conceptual blending**.
-
-This project setup referenced the setup from the ["baby_AGITraining" repo](https://github.com/wendecoder/baby_AGITraining) with a similar project setup.
 
 
 ## Directory Structure
