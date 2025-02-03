@@ -4,8 +4,9 @@ from .llmagent import ChatGPTAgent
 
 def prompt_agent(metta: MeTTa, *args):
 
-    for atom in args:
-        text = str(atom)
+    
+    text = " ".join(str(atom) for atom in args) # Instead of overwriting text in each loop iteration, concatenate multiple inputs: because if multiple args , the last arg is the text.
+
 
     gpt_agent = ChatGPTAgent()
 
@@ -41,6 +42,12 @@ def prompt_agent(metta: MeTTa, *args):
     answer = gpt_agent(messages, functions=[])
     print(answer.content)
 
-    atoms = metta.parse_all(answer.content)
-    return [ValueAtom(atoms, 'Expression')]
+    try:
+
+        atoms = metta.parse_all(answer.content)
+        return [ValueAtom(atoms, 'Expression')]
+
+    except Exception as e:
+        print("Error Parsing Gpt Response",e)
+        return [ValueAtom("(blendedConcept error invalid_output)", 'Expression')]
 
