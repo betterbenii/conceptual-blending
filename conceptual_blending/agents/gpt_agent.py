@@ -12,34 +12,35 @@ def prompt_agent(metta: MeTTa, *args):
 
     prompt = f'''
     You are an expert in conceptual blending. Your task is to:
-    1. **Extract two key concepts** from the given text.
-        2. **Identify the blend type** (Simplex, Mirror, Single-Scope, or Double-Scope).
-    3. **Generate a structured representation** of how the two concepts blend.
+    1. **Extract two key concepts** from the given {text}.
+    2. **Determine the blend type** (Simplex, Mirror, Single-Scope, or Double-Scope).
+    3. **Generate a structured representation** of the blend.
 
-    ### **Input Text:**
-    "{text}"
+    ### **Rules for Classifying Blend Types:**
+    - **Simplex Blend** → One concept provides a **frame**, the other fills a role.
+    - Example: **Electricity + Water Flow** → `(SimplexBlend (blend electricity waterFlow) circuitHydraulics)`
+    - *HINT: If one concept clearly organizes the other, it's Simplex.*
 
-    ### **Your Task:**
-    - Identify **Concept 1** and **Concept 2** from the text.
-    - Determine the **blend type**:
-        - **Simplex** → One concept provides a **frame**, the other fills a role.
-        - **Mirror** → Both concepts share the **same structure**.
-        - **Single-Scope** → One concept dominates structurally, but the other contributes meaning.
-        - **Double-Scope** → Two structurally different concepts merge to form something **entirely new**.
+    - **Mirror Blend** → Both concepts share the **same structure**.
+    - Example: **River + Road** → `(MirrorBlend (blend river road) naturalFlowPathways)`
+    - *HINT: If both concepts have the same logical organization, it's Mirror.*
 
-    ### **Examples:**
-    - `(SimplexBlend (blend electricity waterFlow) circuitHydraulics)`
-    - `(MirrorBlend (blend thunder speech) stormWarning)`
-    - `(SingleScopeBlend (blend DrugMakers Speech) AntibioticMetaphors)`
-    - `(DoubleScopeBlend (blend TheaterManagers Dictators) AbsoluteTheater)`
+    - **Single-Scope Blend** → One concept's structure dominates while the other provides meaning.
+    - Example: **Drug Manufacturing + Speech** → `(SingleScopeBlend (blend DrugManufacturing Speech) PharmaceuticalMetaphors)`
+    - *HINT: If only ONE structure is used, but meaning comes from both, it's Single-Scope.*
+
+    - **Double-Scope Blend** → Two concepts with **different structures** merge into a new one.
+    - Example: **Theater Management + Dictatorship** → `(DoubleScopeBlend (blend TheaterManagement Dictatorship) AuthoritarianStagecraft)`
+    - *HINT: If BOTH concepts contribute unique structures, it's Double-Scope.*
 
     ### **Now, extract concepts and generate:**
-    1. **Concept 1** and **Concept 2** from the text.
+    1. **Concept 1** and **Concept 2** from the {text}.
     2. **Blend type** (Simplex, Mirror, Single-Scope, or Double-Scope).
     3. **Blended concept representation.**
 
     Return only one line in the specified format.
     '''
+
 
     messages = [{"role": "user", "content": prompt}]
     answer = gpt_agent(messages, functions=[])
